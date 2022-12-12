@@ -5,59 +5,148 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HotFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class HotFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
+    private List<DataModel> dataModels;
+    private List<FeaturedModel> featuredModels;
+    private List<SeriesModel> seriesModels;
+    private SlideAdapter slideAdapter;
+    private RecyclerView featuredRecyclerView, web_series_recycler_view;
+    private FeaturedAdapter featuredAdapter;
+    private SeriesAdapter seriesAdapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+    // constructor empty
     public HotFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HotFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HotFragment newInstance(String param1, String param2) {
-        HotFragment fragment = new HotFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hot, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_hot, container, false);
+        SliderView sliderView = (SliderView) view.findViewById(R.id.sliderView);
+        slideAdapter = new SlideAdapter(getActivity());
+        sliderView.setSliderAdapter(slideAdapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+        sliderView.setScrollTimeInSec(3);
+        sliderView.setAutoCycle(true);
+        reNewItem(sliderView);
+
+//         load hot from database
+        loadFirebaseForSlide();
+
+
+
+        DatabaseReference FRef = database.getReference("topweek");
+        featuredRecyclerView = view.findViewById(R.id.recyclerView);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
+        featuredRecyclerView.setLayoutManager(layoutManager);
+        featuredModels = new ArrayList<FeaturedModel>();
+        featuredAdapter = new FeaturedAdapter(featuredModels);
+        featuredRecyclerView.setAdapter(featuredAdapter);
+
+        FRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    FeaturedModel dataModel = contentSnapShot.getValue(FeaturedModel.class);
+                    featuredModels.add(dataModel);
+                }
+                featuredAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        DatabaseReference SRef = database.getReference("series");
+        web_series_recycler_view = (RecyclerView) view.findViewById(R.id.web_series_recycler_view);
+        LinearLayoutManager layoutManagerS = new LinearLayoutManager(getActivity());
+        layoutManagerS.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerS.setReverseLayout(true);
+        layoutManagerS.setStackFromEnd(true);
+        web_series_recycler_view.setLayoutManager(layoutManagerS);
+
+        seriesModels = new ArrayList<>();
+        seriesAdapter = new SeriesAdapter(seriesModels);
+        web_series_recycler_view.setAdapter(seriesAdapter);
+        SRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    SeriesModel newSeriesModel = contentSnapShot.getValue(SeriesModel.class);
+                    seriesModels.add(newSeriesModel);
+                }
+                seriesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return  view;
+    }
+
+
+
+    private void loadFirebaseForSlide() {
+
+        myRef.child("hot").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot contentSlider : dataSnapshot.getChildren()) {
+                    DataModel sliderItem = contentSlider.getValue(DataModel.class);
+                    dataModels.add(sliderItem);
+                }
+                slideAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    // renew item
+    private void reNewItem(View view){
+        dataModels = new ArrayList<>();
+        DataModel dataItems = new DataModel();
+        dataModels.add(dataItems);
+        slideAdapter.reNewItems(dataModels);
+        slideAdapter.deleteItems(0);
     }
 }
