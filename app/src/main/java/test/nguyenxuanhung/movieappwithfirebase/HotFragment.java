@@ -67,21 +67,49 @@ public class HotFragment extends Fragment {
 ////        loadFirebaseForSlide();
 
 
+        DatabaseReference FRef = database.getReference("topday");
+        topRecyclerView = view.findViewById(R.id.recyclerTopDayMovie);
+        LinearLayoutManager layoutManagerT = new LinearLayoutManager(getActivity());
 
-        DatabaseReference FRef = database.getReference("topweek");
-        featuredRecyclerView = view.findViewById(R.id.recyclerView);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        layoutManagerT.setOrientation(RecyclerView.HORIZONTAL);
 
 //        layoutManager.setReverseLayout(true);
 //        layoutManager.setStackFromEnd(true);
-        featuredRecyclerView.setLayoutManager(layoutManager);
+        topRecyclerView.setLayoutManager(layoutManagerT);
+        topModels = new ArrayList<TopModel>();
+        topAdapter = new TopAdapter(topModels);
+        topRecyclerView.setAdapter(topAdapter);
+
+        FRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    TopModel topModel = contentSnapShot.getValue(TopModel.class);
+                    topModels.add(topModel);
+                }
+                topAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference DRef = database.getReference("topweek");
+        featuredRecyclerView = view.findViewById(R.id.recyclerView);
+        LinearLayoutManager layoutManagerD = new LinearLayoutManager(getActivity());
+
+        layoutManagerD.setOrientation(RecyclerView.HORIZONTAL);
+
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
+        featuredRecyclerView.setLayoutManager(layoutManagerD);
         featuredModels = new ArrayList<FeaturedModel>();
         featuredAdapter = new FeaturedAdapter(featuredModels);
         featuredRecyclerView.setAdapter(featuredAdapter);
 
-        FRef.addValueEventListener(new ValueEventListener() {
+        DRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
@@ -122,40 +150,6 @@ public class HotFragment extends Fragment {
 
             }
         });
-
-
-
-        DatabaseReference TRef = database.getReference("topweek");
-        topRecyclerView = view.findViewById(R.id.recyclerTopDayMovie);
-        LinearLayoutManager layoutManagerT = new LinearLayoutManager(getActivity());
-
-        layoutManagerT.setOrientation(RecyclerView.HORIZONTAL);
-
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
-        topRecyclerView.setLayoutManager(layoutManagerT);
-        topModels = new ArrayList<TopModel>();
-        topAdapter = new TopAdapter(topModels);
-        topRecyclerView.setAdapter(featuredAdapter);
-
-        TRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
-                    TopModel topModel = contentSnapShot.getValue(TopModel.class);
-                    topModels.add(topModel);
-                }
-                featuredAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
         return  view;
     }
 
