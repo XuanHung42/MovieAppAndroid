@@ -47,7 +47,7 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
                 sendDataToDetailsActivity.putExtra("title",seriesModelList.get(position).getStitle());
                 sendDataToDetailsActivity.putExtra("link",seriesModelList.get(position).getSlink());
                 sendDataToDetailsActivity.putExtra("cover",seriesModelList.get(position).getScover());
-                    sendDataToDetailsActivity.putExtra("thumb",seriesModelList.get(position).getSthumb());
+                sendDataToDetailsActivity.putExtra("thumb",seriesModelList.get(position).getSthumb());
                 sendDataToDetailsActivity.putExtra("desc",seriesModelList.get(position).getSdesc());
                 sendDataToDetailsActivity.putExtra("cast",seriesModelList.get(position).getScast());
                 sendDataToDetailsActivity.putExtra("t_link",seriesModelList.get(position).getTlink());

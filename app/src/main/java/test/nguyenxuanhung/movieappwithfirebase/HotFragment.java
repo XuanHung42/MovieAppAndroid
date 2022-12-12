@@ -28,16 +28,22 @@ public class HotFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     private List<DataModel> dataModels;
-    private List<FeaturedModel> featuredModels;
-    private List<SeriesModel> seriesModels;
     private SlideAdapter slideAdapter;
-    private RecyclerView featuredRecyclerView, web_series_recycler_view;
+
+    private List<FeaturedModel> featuredModels;
     private FeaturedAdapter featuredAdapter;
+
+    private List<SeriesModel> seriesModels;
     private SeriesAdapter seriesAdapter;
 
+    private List<TopModel> topModels;
+    private TopAdapter topAdapter;
+
+    private RecyclerView featuredRecyclerView, web_series_recycler_view, topRecyclerView;
 
     // constructor empty
     public HotFragment() {
+
     }
 
     @Override
@@ -46,17 +52,19 @@ public class HotFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_hot, container, false);
         SliderView sliderView = (SliderView) view.findViewById(R.id.sliderView);
-        slideAdapter = new SlideAdapter(getActivity());
-        sliderView.setSliderAdapter(slideAdapter);
-        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-        sliderView.setScrollTimeInSec(3);
-        sliderView.setAutoCycle(true);
-        reNewItem(sliderView);
 
-//         load hot from database
-        loadFirebaseForSlide();
+//        // slider
+//        slideAdapter = new SlideAdapter(getActivity());
+//        sliderView.setSliderAdapter(slideAdapter);
+//        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
+//        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
+//        sliderView.setScrollTimeInSec(3);
+//        sliderView.setAutoCycle(true);
+//        reNewItem(sliderView);
+//
+////         load hot from database
+////        loadFirebaseForSlide();
 
 
 
@@ -89,7 +97,6 @@ public class HotFragment extends Fragment {
             }
         });
 
-
         DatabaseReference SRef = database.getReference("series");
         web_series_recycler_view = (RecyclerView) view.findViewById(R.id.web_series_recycler_view);
         LinearLayoutManager layoutManagerS = new LinearLayoutManager(getActivity());
@@ -110,19 +117,51 @@ public class HotFragment extends Fragment {
                 }
                 seriesAdapter.notifyDataSetChanged();
             }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        DatabaseReference TRef = database.getReference("topweek");
+        topRecyclerView = view.findViewById(R.id.recyclerTopDayMovie);
+        LinearLayoutManager layoutManagerT = new LinearLayoutManager(getActivity());
+
+        layoutManagerT.setOrientation(RecyclerView.HORIZONTAL);
+
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
+        topRecyclerView.setLayoutManager(layoutManagerT);
+        topModels = new ArrayList<TopModel>();
+        topAdapter = new TopAdapter(topModels);
+        topRecyclerView.setAdapter(featuredAdapter);
+
+        TRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
+                    TopModel topModel = contentSnapShot.getValue(TopModel.class);
+                    topModels.add(topModel);
+                }
+                featuredAdapter.notifyDataSetChanged();
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+
+
         return  view;
     }
 
 
 
     private void loadFirebaseForSlide() {
-
         myRef.child("hot").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
