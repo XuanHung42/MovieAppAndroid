@@ -25,8 +25,11 @@ import java.util.List;
 
 public class HotFragment extends Fragment {
 
+
+    // connect db
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
+
     private List<DataModel> dataModels;
     private SlideAdapter slideAdapter;
 
@@ -96,12 +99,11 @@ public class HotFragment extends Fragment {
             }
         });
 
+        // top weeek
         DatabaseReference DRef = database.getReference("topweek");
         featuredRecyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManagerD = new LinearLayoutManager(getActivity());
-
         layoutManagerD.setOrientation(RecyclerView.HORIZONTAL);
-
 //        layoutManager.setReverseLayout(true);
 //        layoutManager.setStackFromEnd(true);
         featuredRecyclerView.setLayoutManager(layoutManagerD);
@@ -125,14 +127,14 @@ public class HotFragment extends Fragment {
             }
         });
 
-        DatabaseReference SRef = database.getReference("series");
+        // top month
+        DatabaseReference SRef = database.getReference("topmonth");
         web_series_recycler_view = (RecyclerView) view.findViewById(R.id.web_series_recycler_view);
-        LinearLayoutManager layoutManagerS = new LinearLayoutManager(getActivity());
-        layoutManagerS.setOrientation(RecyclerView.HORIZONTAL);
-        layoutManagerS.setReverseLayout(true);
-        layoutManagerS.setStackFromEnd(true);
-        web_series_recycler_view.setLayoutManager(layoutManagerS);
-
+        LinearLayoutManager layoutManagerTM = new LinearLayoutManager(getActivity());
+        layoutManagerTM.setOrientation(RecyclerView.HORIZONTAL);
+//        layoutManagerS.setReverseLayout(true);
+//        layoutManagerS.setStackFromEnd(true);
+        web_series_recycler_view.setLayoutManager(layoutManagerTM);
         seriesModels = new ArrayList<>();
         seriesAdapter = new SeriesAdapter(seriesModels);
         web_series_recycler_view.setAdapter(seriesAdapter);
@@ -154,7 +156,7 @@ public class HotFragment extends Fragment {
     }
 
 
-
+    // load show slide hot
     private void loadFirebaseForSlide() {
         myRef.child("hot").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
