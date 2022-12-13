@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         FirebaseApp.initializeApp(this);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Movies App");
         tabLayout = findViewById(R.id.tabLayout);
 
         viewPager = findViewById(R.id.view_pager);
