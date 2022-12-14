@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="test.nguyenxuanhung.movieappwithfirebase">
+    package="groups.project.movieappwithfirebase">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieAppWithFireBase">
         <activity
-            android:name=".HomeActivity"
+            android:name="groups.project.movieappwithfirebase.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailsActivity"
+            android:name="groups.project.movieappwithfirebase.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".PlayerActivity"
+            android:name="groups.project.movieappwithfirebase.PlayerActivity"
             android:exported="false"
             android:resizeableActivity="true"
             android:screenOrientation="landscape"
             android:supportsPictureInPicture="true"
             android:theme="@style/Theme.AppCompat.FullScreen" />
         <activity
-            android:name=".MainActivity"
+            android:name="groups.project.movieappwithfirebase.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

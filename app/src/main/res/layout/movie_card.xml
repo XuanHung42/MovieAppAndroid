@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
-        android:maxLines="2"
+        android:maxLines="1"
         android:ellipsize="end"
         android:textColor="@color/white"
         android:layout_margin="6dp"

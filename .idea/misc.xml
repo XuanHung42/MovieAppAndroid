@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+
+        <entry key="..\:/Study/LTAndroid/MovieApp/app/src/main/res/layout/activity_player.xml" value="0.13229166666666667" />
         <entry key="..\:/Study/TestAndroid/MovieApp/app/src/main/res/drawable/gradient_bg.xml" value="0.1055" />
         <entry key="..\:/Study/TestAndroid/MovieApp/app/src/main/res/drawable/search_shape.xml" value="0.2485" />
         <entry key="..\:/Study/TestAndroid/MovieApp/app/src/main/res/layout/activity_details.xml" value="0.1" />
