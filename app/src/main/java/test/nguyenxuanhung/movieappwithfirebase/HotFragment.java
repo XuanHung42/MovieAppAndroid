@@ -68,14 +68,11 @@ public class HotFragment extends Fragment {
 //
 ////         load hot from database
 ////        loadFirebaseForSlide();
-
-
         DatabaseReference FRef = database.getReference("topday");
         topRecyclerView = view.findViewById(R.id.recyclerTopDayMovie);
         LinearLayoutManager layoutManagerT = new LinearLayoutManager(getActivity());
 
         layoutManagerT.setOrientation(RecyclerView.HORIZONTAL);
-
 //        layoutManager.setReverseLayout(true);
 //        layoutManager.setStackFromEnd(true);
         topRecyclerView.setLayoutManager(layoutManagerT);
