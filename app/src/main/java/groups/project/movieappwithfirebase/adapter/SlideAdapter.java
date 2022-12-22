@@ -45,18 +45,18 @@ private Context context;
         return new MyViewHolder(view);
     }
 
+    // phát video phim
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
-//        DataModel dataModel = dataModels.get(position);
         viewHolder.slider_title.setText(dataModels.get(position).getTtitle());
-       Glide.with(viewHolder.itemView).load(dataModels.get(position).getTurl()).into(viewHolder.slider_image);
+        Glide.with(viewHolder.itemView).load(dataModels.get(position).getTurl()).into(viewHolder.slider_image);
 
         viewHolder.play_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent trailer_video = new Intent(context, PlayerActivity.class);
                 trailer_video.putExtra("vid", dataModels.get(position).getTvid());
-                trailer_video.putExtra("title", dataModels.get(position).getTvid());
+                trailer_video.putExtra("title", dataModels.get(position).getTtitle());
                 view.getContext().startActivity(trailer_video);
 
             }

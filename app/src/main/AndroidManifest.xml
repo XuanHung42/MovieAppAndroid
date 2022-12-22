@@ -17,6 +17,8 @@
         <activity
             android:name="groups.project.movieappwithfirebase.DetailsActivity"
             android:exported="false" />
+
+<!--        Xem toàn màn hình-->
         <activity
             android:name="groups.project.movieappwithfirebase.PlayerActivity"
             android:exported="false"

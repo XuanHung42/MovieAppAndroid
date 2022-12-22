@@ -29,12 +29,10 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
                 return new HomeFragment();
         }
     }
-
     @Override
     public int getCount() {
         return 3;
     }
-
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
