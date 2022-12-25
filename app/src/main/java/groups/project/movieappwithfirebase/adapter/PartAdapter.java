@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import groups.project.movieappwithfirebase.PlayerActivity;
+import groups.project.movieappwithfirebase.activity.PlayerActivity;
 import groups.project.movieappwithfirebase.R;
 import groups.project.movieappwithfirebase.model.PartModel;
 

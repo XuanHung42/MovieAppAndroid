@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import groups.project.movieappwithfirebase.DetailsActivity;
+import groups.project.movieappwithfirebase.activity.DetailsActivity;
 import groups.project.movieappwithfirebase.R;
 import groups.project.movieappwithfirebase.model.SeriesModel;
 
@@ -33,8 +33,6 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_card, parent, false);
-
-
         return new  MyViewHolder(view);
     }
 
@@ -74,7 +72,6 @@ public class SeriesAdapter extends RecyclerView.Adapter<SeriesAdapter.MyViewHold
     public class MyViewHolder extends  RecyclerView.ViewHolder{
         ImageView imageView;
         TextView title;
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.movie_title);

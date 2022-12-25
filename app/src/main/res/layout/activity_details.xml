@@ -28,7 +28,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".DetailsActivity">
+                tools:context=".activity.DetailsActivity">
 
 
                 <ImageView
@@ -42,7 +42,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
-                <ImageView
+                    <ImageView
                     android:id="@+id/imageView3"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
@@ -126,7 +126,8 @@
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/color_text_blue"
                 android:id="@+id/desc"
-                android:textSize="16sp"
+                android:textSize="18sp"
+                android:justificationMode="inter_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Movie Desc" />

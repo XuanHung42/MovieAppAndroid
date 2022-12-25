@@ -1,4 +1,4 @@
-package groups.project.movieappwithfirebase;
+package groups.project.movieappwithfirebase.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import groups.project.movieappwithfirebase.R;
 import groups.project.movieappwithfirebase.adapter.CastAdapter;
 import groups.project.movieappwithfirebase.adapter.PartAdapter;
 import groups.project.movieappwithfirebase.model.CastModel;
@@ -34,7 +35,7 @@ import groups.project.movieappwithfirebase.model.PartModel;
 
 public class DetailsActivity extends AppCompatActivity {
     private List<CastModel> castModels;
-    private  List<PartModel> partModels;
+    private List<PartModel> partModels;
     private CastAdapter castAdapter;
     private PartAdapter partAdapter;
     private RecyclerView part_recycler_view, cast_recycler_view;
@@ -82,6 +83,7 @@ public class DetailsActivity extends AppCompatActivity {
         title.setText(title_movie);
         desc.setText(des_movie);
 
+//       sự kiện xem phim ở bên trong màn hình details của nút action button
         actionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +92,7 @@ public class DetailsActivity extends AppCompatActivity {
                 myRef.child("link").child(trailer_movie).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String vidUrl = snapshot.getValue(String.class);
+                        String vidUrl = snapshot.getValue(String.class);
                         Intent intent = new Intent(DetailsActivity.this, PlayerActivity.class);
                         intent.putExtra("vid", vidUrl);
                         startActivity(intent);
@@ -165,10 +167,8 @@ public class DetailsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if(item.getItemId()== android.R.id.home) {
             super.finish();
-
         }
         return super.onOptionsItemSelected(item);
     }

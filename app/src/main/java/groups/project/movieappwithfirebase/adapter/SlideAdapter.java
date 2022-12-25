@@ -15,9 +15,9 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import groups.project.movieappwithfirebase.PlayerActivity;
+import groups.project.movieappwithfirebase.activity.PlayerActivity;
 import groups.project.movieappwithfirebase.R;
-import groups.project.movieappwithfirebase.model.DataModel;
+import groups.project.movieappwithfirebase.model.SliderModel;
 
 public class SlideAdapter extends SliderViewAdapter<SlideAdapter.MyViewHolder> {
 
@@ -26,11 +26,10 @@ private Context context;
     public SlideAdapter(Context context) {
         this.context = context;
     }
+    private List<SliderModel> dataModels = new ArrayList<>();
 
-    private List<DataModel> dataModels = new ArrayList<>();
 
-
-    public void reNewItems(List<DataModel> dataItems){
+    public void reNewItems(List<SliderModel> dataItems){
         this.dataModels = dataItems;
         notifyDataSetChanged();
     }
@@ -50,7 +49,6 @@ private Context context;
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
         viewHolder.slider_title.setText(dataModels.get(position).getTtitle());
         Glide.with(viewHolder.itemView).load(dataModels.get(position).getTurl()).into(viewHolder.slider_image);
-
         viewHolder.play_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,8 +75,6 @@ private Context context;
             slider_image = itemView.findViewById(R.id.image_thumbnail);
             slider_title = itemView.findViewById(R.id.trailer_title);
             play_button = itemView.findViewById(R.id.floatingActionButton);
-
-
         }
     }
 }

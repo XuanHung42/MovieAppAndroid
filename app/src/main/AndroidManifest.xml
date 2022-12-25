@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="groups.project.movieappwithfirebase">
-
+<!--cần phải có internet để load phim -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,23 +11,21 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieAppWithFireBase">
+
         <activity
-            android:name="groups.project.movieappwithfirebase.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name="groups.project.movieappwithfirebase.DetailsActivity"
+            android:name="groups.project.movieappwithfirebase.activity.DetailsActivity"
             android:exported="false" />
 
 <!--        Xem toàn màn hình-->
         <activity
-            android:name="groups.project.movieappwithfirebase.PlayerActivity"
+            android:name="groups.project.movieappwithfirebase.activity.PlayerActivity"
             android:exported="false"
             android:resizeableActivity="true"
             android:screenOrientation="landscape"
             android:supportsPictureInPicture="true"
             android:theme="@style/Theme.AppCompat.FullScreen" />
         <activity
-            android:name="groups.project.movieappwithfirebase.MainActivity"
+            android:name="groups.project.movieappwithfirebase.activity.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

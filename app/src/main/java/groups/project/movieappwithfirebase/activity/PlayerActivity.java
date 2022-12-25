@@ -1,4 +1,4 @@
-package groups.project.movieappwithfirebase;
+package groups.project.movieappwithfirebase.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +23,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import groups.project.movieappwithfirebase.R;
+
 public class PlayerActivity extends AppCompatActivity {
 
     private PlayerView playerView;
@@ -34,12 +36,6 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         VIDEO_URI = getIntent().getStringExtra("vid");
-        VIDEO_TITLE = getIntent().getStringExtra("title");
-        Toolbar toolbar = findViewById(R.id.Toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(VIDEO_TITLE);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override
@@ -59,10 +55,9 @@ public class PlayerActivity extends AppCompatActivity {
         simpleExoPlayer.prepare(videoSource);
         simpleExoPlayer.setPlayWhenReady(true);
         playerView.setKeepScreenOn(true);
-
-
     }
 
+//    khi thoát video ko xem thì dừng lại video
     @Override
     protected void onStop() {
         super.onStop();
@@ -75,7 +70,6 @@ public class PlayerActivity extends AppCompatActivity {
             super.finish();
             simpleExoPlayer.release();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

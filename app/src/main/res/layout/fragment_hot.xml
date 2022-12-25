@@ -24,18 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-
-<!--                slider      -->
-<!--                <com.smarteist.autoimageslider.SliderView-->
-<!--                    android:id="@+id/sliderView"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="255dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:sliderIndicatorSelectedColor="#f1b814"-->
-<!--                    app:sliderIndicatorUnselectedColor="@color/white"-->
-<!--                    tools:ignore="MissingConstraints" />-->
                 <TextView
                     android:layout_margin="16dp"
                     android:textSize="16sp"

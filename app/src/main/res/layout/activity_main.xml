@@ -6,7 +6,7 @@
     android:background="@color/purple_700"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -47,21 +47,6 @@
 
 
     </androidx.viewpager.widget.ViewPager>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </LinearLayout>
 

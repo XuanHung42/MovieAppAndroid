@@ -1,25 +1,20 @@
 package groups.project.movieappwithfirebase.model;
 
-public class DataModel {
+public class SliderModel {
     private String Ttitle;
     private String Turl;
     private String Tvid;
-    //
 
-
-    public DataModel() {
+    public SliderModel() {
     }
 
-
-
-    public DataModel(String ttitle, String turl,
-                     String tvid) {
+    public SliderModel(String ttitle, String turl,
+                       String tvid) {
         Ttitle = ttitle;
         Turl = turl;
         Tvid = tvid;
 
     }
-
 
     public String getTtitle() {
         return Ttitle;

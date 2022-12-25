@@ -26,7 +26,7 @@ import groups.project.movieappwithfirebase.R;
 import groups.project.movieappwithfirebase.adapter.FeaturedAdapter;
 import groups.project.movieappwithfirebase.adapter.SeriesAdapter;
 import groups.project.movieappwithfirebase.adapter.SlideAdapter;
-import groups.project.movieappwithfirebase.model.DataModel;
+import groups.project.movieappwithfirebase.model.SliderModel;
 import groups.project.movieappwithfirebase.model.FeaturedModel;
 import groups.project.movieappwithfirebase.model.SeriesModel;
 
@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
 
 FirebaseDatabase database = FirebaseDatabase.getInstance();
 DatabaseReference myRef = database.getReference();
-    private List<DataModel> dataModels;
+    private List<SliderModel> dataModels;
     private List<FeaturedModel> featuredModels;
     private List<SeriesModel> seriesModels;
     private SlideAdapter slideAdapter;
@@ -44,7 +44,6 @@ DatabaseReference myRef = database.getReference();
     public HomeFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -66,11 +65,11 @@ DatabaseReference myRef = database.getReference();
         // load banner slider
         loadFirebaseForSlide();
 
+        // featured
         DatabaseReference FRef = database.getReference("featured");
         featuredRecyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         featuredRecyclerView.setLayoutManager(layoutManager);
@@ -94,6 +93,8 @@ DatabaseReference myRef = database.getReference();
             }
         });
 
+
+        // series
         DatabaseReference SRef = database.getReference("series");
         web_series_recycler_view = (RecyclerView) view.findViewById(R.id.web_series_recycler_view);
         LinearLayoutManager layoutManagerS = new LinearLayoutManager(getActivity());
@@ -101,7 +102,6 @@ DatabaseReference myRef = database.getReference();
         layoutManagerS.setReverseLayout(true);
         layoutManagerS.setStackFromEnd(true);
         web_series_recycler_view.setLayoutManager(layoutManagerS);
-
         seriesModels = new ArrayList<>();
         seriesAdapter = new SeriesAdapter(seriesModels);
         web_series_recycler_view.setAdapter(seriesAdapter);
@@ -114,107 +114,36 @@ DatabaseReference myRef = database.getReference();
                 }
                 seriesAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-return  view;
-
+        return  view;
     }
-    private void loadFirebaseForSlide() {
 
+    private void loadFirebaseForSlide() {
         myRef.child("Trailer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot contentSlider : dataSnapshot.getChildren()) {
-                    DataModel sliderItem = contentSlider.getValue(DataModel.class);
+                    SliderModel sliderItem = contentSlider.getValue(SliderModel.class);
                     dataModels.add(sliderItem);
                 }
                 slideAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
-
         });
     }
 
-//    private void loadFeaturedData() {
-//
-//
-//        DatabaseReference FRef = database.getReference("featured");
-//        featuredRecyclerView = findViewById(R.id.recyclerView);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-//
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
-//        featuredRecyclerView.setLayoutManager(layoutManager);
-//        featuredModels = new ArrayList<>();
-//        featuredAdapter = new FeaturedAdapter(featuredModels);
-//        featuredRecyclerView.setAdapter(featuredAdapter);
-//
-//        FRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
-//                    FeaturedModel dataModel = contentSnapShot.getValue(FeaturedModel.class);
-//                    featuredModels.add(dataModel);
-//                }
-//                featuredAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        loadSeriesData();
-//        loadFeaturedData();
-//
-//    }
-//
-//    private void loadSeriesData() {
-//        DatabaseReference SRef = database.getReference("series");
-//        web_series_recycler_view = (RecyclerView) findViewById(R.id.web_series_recycler_view);
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-//
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
-//        web_series_recycler_view.setLayoutManager(layoutManager);
-//
-//        seriesModels = new ArrayList<>();
-//        seriesAdapter = new SeriesAdapter(seriesModels);
-//        web_series_recycler_view.setAdapter(seriesAdapter);
-//        SRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot contentSnapShot : snapshot.getChildren()) {
-//                    SeriesModel newSeriesModel = contentSnapShot.getValue(SeriesModel.class);
-//                    seriesModels.add(newSeriesModel);
-//                }
-//                seriesAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
     private void reNewItems(View view) {
         dataModels = new ArrayList<>();
-        DataModel dataItems = new DataModel();
+        SliderModel dataItems = new SliderModel();
         dataModels.add(dataItems);
         slideAdapter.reNewItems(dataModels);
         slideAdapter.deleteItems(0);
-
     }
 }

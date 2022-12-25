@@ -33,6 +33,7 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return 3;
     }
+
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

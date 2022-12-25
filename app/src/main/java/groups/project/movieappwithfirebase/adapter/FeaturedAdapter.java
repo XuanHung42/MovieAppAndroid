@@ -18,7 +18,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import groups.project.movieappwithfirebase.DetailsActivity;
+import groups.project.movieappwithfirebase.activity.DetailsActivity;
 import groups.project.movieappwithfirebase.R;
 import groups.project.movieappwithfirebase.model.FeaturedModel;
 
@@ -41,6 +41,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.textView.setText(dataModels.get(position).getFtitle());
         Glide.with(holder.itemView.getContext()).load(dataModels.get(position).getFthumb()).into(holder.imageView);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

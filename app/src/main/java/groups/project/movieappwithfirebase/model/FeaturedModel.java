@@ -1,6 +1,15 @@
 package groups.project.movieappwithfirebase.model;
 
 public class FeaturedModel {
+
+    private String Fcast;
+    private String Fcover;
+    private String Fdes;
+    private String Flink;
+    private String Fthumb;
+    private String Ftitle;
+    private String Tlink;
+
     public FeaturedModel() {
 
     }
@@ -71,11 +80,4 @@ public class FeaturedModel {
         Tlink = tlink;
     }
 
-    private String Fcast;
-    private String Fcover;
-    private String Fdes;
-    private String Flink;
-    private String Fthumb;
-    private String Ftitle;
-    private String Tlink;
 }

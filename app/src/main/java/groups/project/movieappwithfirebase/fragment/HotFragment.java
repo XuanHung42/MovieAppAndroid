@@ -25,7 +25,7 @@ import groups.project.movieappwithfirebase.adapter.FeaturedAdapter;
 import groups.project.movieappwithfirebase.adapter.SeriesAdapter;
 import groups.project.movieappwithfirebase.adapter.SlideAdapter;
 import groups.project.movieappwithfirebase.adapter.TopAdapter;
-import groups.project.movieappwithfirebase.model.DataModel;
+import groups.project.movieappwithfirebase.model.SliderModel;
 import groups.project.movieappwithfirebase.model.FeaturedModel;
 import groups.project.movieappwithfirebase.model.SeriesModel;
 import groups.project.movieappwithfirebase.model.TopModel;
@@ -33,7 +33,7 @@ import groups.project.movieappwithfirebase.model.TopModel;
 public class HotFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
-    private List<DataModel> dataModels;
+    private List<SliderModel> dataModels;
     private SlideAdapter slideAdapter;
     private List<FeaturedModel> featuredModels;
     private FeaturedAdapter featuredAdapter;
@@ -45,44 +45,26 @@ public class HotFragment extends Fragment {
     // constructor empty
     public HotFragment() {
 
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_hot, container, false);
         SliderView sliderView = (SliderView) view.findViewById(R.id.sliderView);
 
-//        // slider
-//        slideAdapter = new SlideAdapter(getActivity());
-//        sliderView.setSliderAdapter(slideAdapter);
-//        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM);
-//        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-//        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_RIGHT);
-//        sliderView.setScrollTimeInSec(3);
-//        sliderView.setAutoCycle(true);
-//        reNewItem(sliderView);
-//
-////         load hot from database
-////        loadFirebaseForSlide();
 
+//      topday
         DatabaseReference FRef = database.getReference("topday");
         topRecyclerView = view.findViewById(R.id.recyclerTopDayMovie);
         LinearLayoutManager layoutManagerT = new LinearLayoutManager(getActivity());
-
         layoutManagerT.setOrientation(RecyclerView.HORIZONTAL);
-
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
         topRecyclerView.setLayoutManager(layoutManagerT);
         topModels = new ArrayList<TopModel>();
         topAdapter = new TopAdapter(topModels);
         topRecyclerView.setAdapter(topAdapter);
-
         FRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,15 +87,10 @@ public class HotFragment extends Fragment {
         featuredRecyclerView = view.findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManagerD = new LinearLayoutManager(getActivity());
         layoutManagerD.setOrientation(RecyclerView.HORIZONTAL);
-
-
-//        layoutManager.setReverseLayout(true);
-//        layoutManager.setStackFromEnd(true);
         featuredRecyclerView.setLayoutManager(layoutManagerD);
         featuredModels = new ArrayList<FeaturedModel>();
         featuredAdapter = new FeaturedAdapter(featuredModels);
         featuredRecyclerView.setAdapter(featuredAdapter);
-
         DRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -136,8 +113,6 @@ public class HotFragment extends Fragment {
         web_series_recycler_view = (RecyclerView) view.findViewById(R.id.web_series_recycler_view);
         LinearLayoutManager layoutManagerTM = new LinearLayoutManager(getActivity());
         layoutManagerTM.setOrientation(RecyclerView.HORIZONTAL);
-//        layoutManagerS.setReverseLayout(true);
-//        layoutManagerS.setStackFromEnd(true);
         web_series_recycler_view.setLayoutManager(layoutManagerTM);
         seriesModels = new ArrayList<>();
         seriesAdapter = new SeriesAdapter(seriesModels);
@@ -151,7 +126,6 @@ public class HotFragment extends Fragment {
                 }
                 seriesAdapter.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -160,30 +134,10 @@ public class HotFragment extends Fragment {
         return view;
     }
 
-
-    private void loadFirebaseForSlide() {
-        myRef.child("hot").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot contentSlider : dataSnapshot.getChildren()) {
-                    DataModel sliderItem = contentSlider.getValue(DataModel.class);
-                    dataModels.add(sliderItem);
-                }
-                slideAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     // renew item
     private void reNewItem(View view) {
         dataModels = new ArrayList<>();
-        DataModel dataItems = new DataModel();
+        SliderModel dataItems = new SliderModel();
         dataModels.add(dataItems);
         slideAdapter.reNewItems(dataModels);
         slideAdapter.deleteItems(0);
