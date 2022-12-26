@@ -37,8 +37,11 @@ private List<Coming23Model> coming23Lists;
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+//        set text
         holder.title.setText(coming23Lists.get(position).getCtitle());
+//        set image
         Glide.with(holder.imageView.getContext()).load(coming23Lists.get(position).getCthumb()).into(holder.imageView);
+//       set click card show activity details
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

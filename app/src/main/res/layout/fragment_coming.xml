@@ -45,7 +45,16 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:sliderIndicatorSelectedColor="#f1b814"
                     app:sliderIndicatorUnselectedColor="@color/white"
-                    tools:ignore="MissingConstraints" />
+                    tools:ignore="MissingConstraints"
+                    app:sliderScrollTimeInSec="3"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorEnabled="true"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorOrientation="horizontal"
+
+                    />
 
                 <TextView
                     android:id="@+id/textView"

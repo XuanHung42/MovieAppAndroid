@@ -44,7 +44,7 @@ private Context context;
         return new MyViewHolder(view);
     }
 
-    // phát video phim
+    // area slider include title, image, click event
     @Override
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
         viewHolder.slider_title.setText(dataModels.get(position).getTtitle());

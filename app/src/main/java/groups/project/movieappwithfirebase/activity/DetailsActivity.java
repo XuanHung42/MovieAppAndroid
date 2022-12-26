@@ -110,6 +110,7 @@ public class DetailsActivity extends AppCompatActivity {
         loadPart();
     }
 
+//    load part movie
     private void loadPart() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference partRef = database.getReference();
@@ -137,6 +138,7 @@ public class DetailsActivity extends AppCompatActivity {
         });
     }
 
+//    load cast
     private void loadCasts() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference castRef = database.getReference();

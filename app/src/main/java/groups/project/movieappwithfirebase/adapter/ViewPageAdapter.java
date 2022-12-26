@@ -15,6 +15,7 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         super(fm, behavior);
     }
 
+//    get item tab layout
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -34,6 +35,7 @@ public class ViewPageAdapter extends FragmentStatePagerAdapter {
         return 3;
     }
 
+//    show text on tab layout
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {

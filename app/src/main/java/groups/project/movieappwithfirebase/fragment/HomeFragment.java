@@ -52,6 +52,8 @@ DatabaseReference myRef = database.getReference();
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         SliderView sliderView = (SliderView) view.findViewById(R.id.sliderView);
+
+//        auto slider
         slideAdapter = new SlideAdapter(getActivity());
         sliderView.setSliderAdapter(slideAdapter);
         sliderView.setSliderAdapter(slideAdapter);
@@ -122,6 +124,7 @@ DatabaseReference myRef = database.getReference();
         return  view;
     }
 
+//    load firebase for slider
     private void loadFirebaseForSlide() {
         myRef.child("Trailer").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

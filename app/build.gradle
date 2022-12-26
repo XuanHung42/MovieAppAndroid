@@ -48,7 +48,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-//     thư viện phát video
+//     using library EXO play video
     implementation 'com.google.android.exoplayer:exoplayer:2.11.7'
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
